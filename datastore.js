@@ -14,6 +14,10 @@ module.exports = function(dataObj) {
 		likes: dataObj.likes
 	});
 
+	// Sort again
+	// Probably wildly wasteful to force full resorting but we ain't caring.
+	fingerporisInMem = _.orderBy(fingerporisInMem, ['likes'], ['desc']);
+
 	// Push to file
 	// Do it sync for KISS, no perf degration anyway
 	// as we don't accept client requests.
