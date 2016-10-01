@@ -2,9 +2,9 @@ var fingerporiDB = require('./datastore');
 var fetchSingle  = require('./countFetch');
 var Promise = require('bluebird');
 
-function singleFetch() {
+function singleFetch(id) {
 	console.log("New fetch starting")
-	return fetchSingle().then(function(infoObj) {
+	return fetchSingle(id).then(function(infoObj) {
 		console.log("fetch done!");
 		console.log(infoObj);
 	}).delay(1000);	
@@ -13,11 +13,14 @@ function singleFetch() {
 function loop() {
 	return singleFetch().then(loop);
 }
-
+/*
 loop()
 .catch(function(e) {
 	console.log("All parsed");
 });
+*/
+
+singleFetch('s1306076345329');
 
 
 

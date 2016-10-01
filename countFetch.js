@@ -14,6 +14,7 @@ var nextFingerporiID = 's1306076646582';
 /* ----- */
 var facebookURLPrefix = 'https://www.facebook.com/plugins/like.php?action=recommend&app_id=188500207846299&channel=http%3A%2F%2Fstaticxx.facebook.com%2Fconnect%2Fxd_arbiter%2Fr%2FP5DLcu0KGJB.js%3Fversion%3D42%23cb%3Dfaa9cb767580d4%26domain%3Dwww.hs.fi%26origin%3Dhttp%253A%252F%252Fwww.hs.fi%252Ff283dc71c6358bc%26relation%3Dparent.parent&layout=button_count&container_width=0&href=http%3A%2F%2Fwww.hs.fi%2Ffingerpori%2F';
 var hsURLPrefix = 'http://www.hs.fi/fingerpori/';
+// Domain-specific exceptions
 var HsFailed = require('./exceptions/HsFailed');
 var FbFailed = require('./exceptions/FbFailed');
 /* ----- */
@@ -30,11 +31,13 @@ var fetchLikes = require('./parsers/fetchLikes')
 * Fetches one fingerpori from HS.fi (or from test location)
 * @returns Promise to be filled with {date, url, count, nextFingerporiUrl}
 */
-module.exports = function(url) {
-	if (process.env.NODE_ENV === 'production2') {
-		return httpFetch(url);
+module.exports = function(id) {
+	return httpFetch(id);
+	if (process.env.NODE_ENV === 'production') {
+		console.log("---WARNING! Production settings in use---");
+		return httpFetch(id);
 	} else {
-		console.log("TEST ENV!");
+		console.log("---Test/dev settings in use!---");
 		return fileFetch();
 	}
 
@@ -76,34 +79,48 @@ function httpFetch(id) {
 		var url = hsURLPrefix + id;
 		var fbUrl = facebookURLPrefix + id;
 
-		request(url, function(err, response, body) {
-			if (!err && response.statusCode === 200) {
-				// Body contains source code for fingerpori page
-				var nextFingerporiID = parseNextFingerpori(body);
-				var currentFingerporiDate = parseFingerporiDate(body);	
+		request(
+			{
+				url: url, 
+				headers: {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.95 Safari/537.36'}
+			},
+			function(err, response, body) {
+				if (!err && response.statusCode === 200) {
+					console.log("Doing hs.fi parsing: " + body.length);
+					// Body contains source code for fingerpori page
+					var nextFingerporiID = parseNextFingerpori(body);
+					var currentFingerporiDate = parseFingerporiDate(body);	
 
-				request(fbUrl, function(err, response, body) {
-					if (!err && response.statusCode === 200) {	
-						facebookLikes = fetchLikes(body);
-						resolve({
-							id: id, 
-							nextId: nextFingerporiID,
-							likes: facebookLikes,
-							date: currentFingerporiDate
-						});						
-					} 
+					request({
+						url: fbUrl, 
+						headers: {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.95 Safari/537.36'}
+					}, function(err, response, body) {
+						if (!err && response.statusCode === 200) {	
+							console.log("Doing facebook parsing: " + body.length);
+							console.log(fbUrl);
+							console.log("-------");
+							console.log(_.truncate(body, {length: 512}));
+							fs.writeFileSync('./fbcode.html', Date.now() + body, 'utf8');
+							var facebookLikes = fetchLikes(body);
+							resolve({
+								id: id, 
+								nextId: nextFingerporiID,
+								likes: facebookLikes,
+								date: currentFingerporiDate
+							});						
+						} 
 
-					else {
-						reject(new FbFailed());
-					}
-				})
+						else {
+							reject(new FbFailed(fbUrl, response.statusCode));
+						}
+					})
 
-			} 
+				} 
 
-			else {
-				reject(new HsFailed());	
-			}
-		})
+				else {
+					reject(new HsFailed(url, response.statusCode));	
+				}
+			})
 
 
 
