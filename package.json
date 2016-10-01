@@ -1,0 +1,17 @@
+{
+  "name": "fingerporiranker",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Jussi Hämäläinen <jussiahamalainen@gmail.com> (http://www.nollaversio.fi)",
+  "license": "ISC",
+  "dependencies": {
+    "bluebird": "^3.4.6",
+    "htmlparser2": "^3.9.1",
+    "lodash": "^4.16.2",
+    "request": "^2.75.0"
+  }
+}
