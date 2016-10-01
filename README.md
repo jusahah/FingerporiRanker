@@ -2,7 +2,7 @@
 
 Fetches excellent Fingerpori comics from HS.fi and ranks them according Facebook like counts.
 
-**WARNING: Do not run and rerun this script over and over again. It will basically be a DDoS attack.** 
+**WARNING: Do not run and rerun this script over and over again. It will basically be a DoS attack.** 
 
 By default the code contains *delay*-functionality which makes sure there is a small pause (about 5 secs) between two successive HTTP requests.
 
