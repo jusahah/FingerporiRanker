@@ -12,13 +12,11 @@ module.exports = function(html) {
 	    	//console.log(name);
 	        if(name === "span" && attribs.class === "pluginCountTextDisconnected"){
 	        	// Bingo, count is coming next
-	            console.log("Count span found!");
 	            countNext = true;
 	        }
 	    },
 	    ontext: function(text){
 	        if (countNext && !count) {
-	        	console.log("Count is " + text + "?");
 	        	count = text;
 	        }
 	    },
@@ -47,7 +45,6 @@ function getNum(count) {
 		}
 
 		var numpart = parts[0];
-		console.log("Numpart: " + numpart);
 		var multiplier = 1000; // Multiplier assuming no comma
 
 		// If numpart has comma, then it is something like '7,6' thousand likes.

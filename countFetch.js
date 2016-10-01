@@ -1,6 +1,7 @@
 var Promise = require('bluebird');
 var _ = require('lodash');
 var request = require('request');
+var chalk = require('chalk');
 
 /* TEST FETCHING STUFF/
 // Can comment out for production
@@ -78,7 +79,7 @@ function httpFetch(id) {
 		// Get the real HS.fi code
 		var url = hsURLPrefix + id;
 		var fbUrl = facebookURLPrefix + id;
-
+		console.log(chalk.blue('HS REQ'));
 		request(
 			{
 				url: url, 
@@ -86,20 +87,15 @@ function httpFetch(id) {
 			},
 			function(err, response, body) {
 				if (!err && response.statusCode === 200) {
-					console.log("Doing hs.fi parsing: " + body.length);
 					// Body contains source code for fingerpori page
 					var nextFingerporiID = parseNextFingerpori(body);
 					var currentFingerporiDate = parseFingerporiDate(body);	
-
+					console.log(chalk.blue('FB REQ'));
 					request({
 						url: fbUrl, 
 						headers: {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.95 Safari/537.36'}
 					}, function(err, response, body) {
 						if (!err && response.statusCode === 200) {	
-							console.log("Doing facebook parsing: " + body.length);
-							console.log(fbUrl);
-							console.log("-------");
-							console.log(_.truncate(body, {length: 512}));
 							fs.writeFileSync('./fbcode.html', Date.now() + body, 'utf8');
 							var facebookLikes = fetchLikes(body);
 							resolve({

@@ -8,7 +8,6 @@ module.exports = function(html) {
 	var parser = new htmlparser.Parser({
 	    onopentag: function(name, attribs){
 	        if(name === "a" && attribs.class === "prev-cm "){
-	        	console.log("prev-cm found");
 	        	next = _.last(attribs.href.split("/"));
 	        }
 	    },

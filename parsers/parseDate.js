@@ -9,7 +9,6 @@ module.exports = function(html) {
 	var parser = new htmlparser.Parser({
 	    onopentag: function(name, attribs){
 	        if(name === "div" && attribs.class === "comic-date"){
-	        	console.log("date found");
 	        	next = true;
 	        }
 	    },
