@@ -75,4 +75,8 @@ Results of scraping are saved to a JSON file *fingerpori_db.json*.
 
 ```
 
+## Known bugs
+
+1. For some yet unidentified reason, the parsing of FB like count data breaks down for comics older than November 2012. To be fixed later.
+
 
