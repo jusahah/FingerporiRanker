@@ -34,6 +34,7 @@ var fetchLikes = require('./parsers/fetchLikes')
 */
 module.exports = function(id) {
 	return httpFetch(id);
+	/*
 	if (process.env.NODE_ENV === 'production') {
 		console.log("---WARNING! Production settings in use---");
 		return httpFetch(id);
@@ -41,6 +42,7 @@ module.exports = function(id) {
 		console.log("---Test/dev settings in use!---");
 		return fileFetch();
 	}
+	*/
 
 }
 
