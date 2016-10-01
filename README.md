@@ -28,7 +28,7 @@ Also the script fetches current FB like count for each comic page. It does this 
 
 Results of scraping are saved to a JSON file *fingerpori_db.json*.
 
-### fingerpori_db.json
+**fingerpori_db.json**
 
 ```
 {
