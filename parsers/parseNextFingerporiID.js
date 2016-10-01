@@ -1,4 +1,5 @@
 var htmlparser = require("htmlparser2");
+var _ = require('lodash');
 
 module.exports = function(html) {
 	var next;
@@ -6,7 +7,8 @@ module.exports = function(html) {
 	// Plus the app is not handling web reqs anyway so no perf degration.
 	var parser = new htmlparser.Parser({
 	    onopentag: function(name, attribs){
-	        if(name === "a" && attribs.class === "prev-cm"){
+	        if(name === "a" && attribs.class === "prev-cm "){
+	        	console.log("prev-cm found");
 	        	next = _.last(attribs.href.split("/"));
 	        }
 	    },
