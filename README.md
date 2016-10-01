@@ -26,51 +26,51 @@ Also the script fetches current FB like count for each comic page. It does this 
 
 ## Storage of results
 
-Results of scraping are saved to a JSON file *fingerpori_db.json*.
+Results of scraping are saved to a JSON file *fingerpori_db.json*. Comics are automatically sorted by *facebook like count*
 
 **fingerpori_db.json**
 
 ```
 {
-  "lastUpdate": "2016-09-15T00:00:00+03:00",
+  "lastUpdate": "2015-10-24T00:00:00+03:00",
   "lastItemPushed": {
-    "id": "s1306072777536",
-    "date": "15.9.2016"
+    "id": "s1305994942488",
+    "date": "24.10.2015"
   },
   "list": [
     {
-      "date": "2016-09-30T00:00:00+03:00",
-      "datestring": "30.9.2016",
-      "id": "s1306076646582",
-      "likes": 1900
+      "date": "2015-10-28T00:00:00+02:00",
+      "datestring": "28.10.2015",
+      "id": "s1305996168814",
+      "likes": 2300
     },
     {
-      "date": "2016-09-29T00:00:00+03:00",
-      "datestring": "29.9.2016",
-      "id": "s1306076345329",
-      "likes": 921
+      "date": "2015-10-24T00:00:00+03:00",
+      "datestring": "24.10.2015",
+      "id": "s1305994942488",
+      "likes": 889
     },
     {
-      "date": "2016-09-28T00:00:00+03:00",
-      "datestring": "28.9.2016",
-      "id": "s1306076074231",
-      "likes": 996
+      "date": "2015-10-27T00:00:00+02:00",
+      "datestring": "27.10.2015",
+      "id": "s1305995682376",
+      "likes": 858
     },
     {
-      "date": "2016-09-27T00:00:00+03:00",
-      "datestring": "27.9.2016",
-      "id": "s1306075673004",
-      "likes": 863
+      "date": "2015-10-26T00:00:00+02:00",
+      "datestring": "26.10.2015",
+      "id": "s1305995400349",
+      "likes": 701
     },
     {
-      "date": "2016-09-26T00:00:00+03:00",
-      "datestring": "26.9.2016",
-      "id": "s1306075061522",
-      "likes": 1400
+      "date": "2015-10-29T00:00:00+02:00",
+      "datestring": "29.10.2015",
+      "id": "s1305996392726",
+      "likes": 555
     },
     
-    // etc etc.
-    
+    // etc.
+  ]
 }
 
 ```
