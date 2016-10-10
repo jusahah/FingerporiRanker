@@ -2,6 +2,7 @@ var Promise = require('bluebird');
 var _ = require('lodash');
 var request = require('request');
 var chalk = require('chalk');
+var encode = require('node-base64-image').encode;
 
 /* TEST FETCHING STUFF/
 // Can comment out for production
@@ -27,7 +28,10 @@ module.exports = function(id) {
 				if (!err && response.statusCode === 200) {
 					// Body contains source code for fingerpori page
 					var picAddress = parsePicAddress(body);	
-					resolve(picAddress);
+					encode(picAddress, {string: true, local: false}, function(e, res) {
+						resolve(res);
+					})
+					
 
 				} 
 
